@@ -1,0 +1,32 @@
+import React,{Component} from 'react';
+import {Button, Card, CardItem, Input} from "./common";
+
+
+class LoginForm extends Component{
+    render(){
+        return(
+            <Card>
+                <CardItem>
+                    <Input
+                        label="Email"
+                        placeholder="email@gmail.com"
+                    />
+                </CardItem>
+                <CardItem>
+                    <Input
+                        secureTextEntry
+                        label="Password"
+                        placeholder="password"
+                    />
+                </CardItem>
+                <CardItem>
+                    <Button>
+                        Login
+                    </Button>
+                </CardItem>
+            </Card>
+        );
+    }
+}
+
+export default LoginForm;

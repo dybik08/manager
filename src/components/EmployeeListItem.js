@@ -5,7 +5,7 @@ import {CardItem} from "./common";
 
 class EmployeeListItem extends Component {
   onRowPress() {
-      Actions.employeeCreate({ employee: this.props.employee });
+      Actions.employeeEdit({ employee: this.props.employee.item });
   }
 
   render(){

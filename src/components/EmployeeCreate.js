@@ -1,48 +1,23 @@
 import React,{Component} from 'react';
-import { Picker, Text } from 'react-native';
 import {connect} from 'react-redux';
-import {employeeUpdate} from "../actions";
-import {Card, CardItem, Button, Input} from "./common";
+import * as actions from "../actions";
+import {Card, CardItem, Button} from "./common";
+import EmployeeForm from './EmployeeForm';
 
 class EmployeeCreate extends Component {
+    onButtonPress() {
+        const { name, phone, shift } = this.props;
+
+        this.props.employeeCreate({ name, phone, shift: shift || 'Monday' });
+    }
+
     render(){
-        const {name, phone, employeeUpdate } = this.props;
+
         return(
             <Card>
+                <EmployeeForm {...this.props} />
                 <CardItem>
-                   <Input
-                       label="Name"
-                       placeholder="Jane"
-                       value={name}
-                       onChangeText={value => employeeUpdate({prop: 'name', value})}
-                   />
-                </CardItem>
-                <CardItem>
-                    <Input
-                        label="Phone"
-                        placeholder="555-555-555"
-                        value={phone}
-                        onChangeText={value => employeeUpdate({prop: 'phone', value})}
-                    />
-                </CardItem>
-                <CardItem style={{ flexDirection: 'column'}}>
-                    <Text style={styles.pickerTextStyle}>Shift</Text>
-                    <Picker
-
-                        selectedValue={this.props.shift}
-                        onValueChange={value => this.props.employeeUpdate({ prop: 'shift', value })}
-                    >
-                        <Picker.Item label="Monday" value="Monday" />
-                        <Picker.Item label="Tuesday" value="Tuesday" />
-                        <Picker.Item label="Wednesday" value="Wednesday" />
-                        <Picker.Item label="Thursday" value="Thursday" />
-                        <Picker.Item label="Friday" value="Friday" />
-                        <Picker.Item label="Saturday" value="Saturday" />
-                        <Picker.Item label="Sunday" value="Sunday" />
-                    </Picker>
-                </CardItem>
-                <CardItem>
-                    <Button>
+                    <Button onPress={this.onButtonPress.bind(this)}>
                         Create
                     </Button>
                 </CardItem>
@@ -51,12 +26,7 @@ class EmployeeCreate extends Component {
     }
 }
 
-const styles = {
-    pickerTextStyle: {
-        fontSize: 18,
-        paddingLeft: 20,
-    }
-};
+
 
 const mapStateToProps = state => {
     const {name, phone, shift } = state.employeeForm;
@@ -64,4 +34,4 @@ const mapStateToProps = state => {
     return { name, phone, shift };
 };
 
-export default connect(mapStateToProps,{employeeUpdate})(EmployeeCreate);
+export default connect(mapStateToProps, actions)(EmployeeCreate);

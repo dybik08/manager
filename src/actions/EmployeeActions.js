@@ -21,7 +21,7 @@ export const employeeCreate = ({ name, phone, shift }) => {
             .push({ name, phone, shift })
             .then(() => {
                 dispatch({ type: EMPLOYEE_CREATE });
-                Actions.employeeList({ type: 'reset' });
+                Actions.reset("main");
             });
     };
 };
@@ -44,7 +44,7 @@ export const employeeSave = ({ name, phone, shift, uid}) => {
       firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
           .set({ name, phone, shift })
           .then(() => {
-              Actions.employeeList({ type: 'reset' });
+              Actions.reset("main");
           });
     };
 };
